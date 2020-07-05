@@ -1,6 +1,7 @@
 package net.rickcee.tradematcher.util;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Stack;
 
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +60,16 @@ public class BlockTradeFinder {
 		if(desiredQty <= addedQty) {
 			log.debug("Desired Qty: " + desiredQty + " / Added Qty: " + addedQty + ". Processing.");
 			
-			data.sort(null);
+			data.sort(new Comparator<IMatchable>() {
+
+				@Override
+				public int compare(IMatchable o1, IMatchable o2) {
+					return o2.getQuantity().compareTo(o1.getQuantity());
+				}
+			});
+			
+//			TreeSet<? extends IMatchable> sorted = new TreeSet<>(data);
+//			ArrayList<? extends IMatchable> alSorted = new ArrayList<>(sorted);
 			
 			findDesiredQty(data, 0, data.size());
 		} else {

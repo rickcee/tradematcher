@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -51,6 +52,15 @@ public class Automatcher implements ApplicationListener<TradeEvent>{
 			trades.remove(trade);
 		}
 		trades.add(trade);
+	}
+	
+	public synchronized void removeAllocTradeFromCache(Stack<? extends IMatchable> trades) {
+		boolean result;
+		log.debug("Removing (" + trades.size() + ") Allocation Entries...");
+		for (IMatchable trade : trades) {
+			result = allocCacheByKey.get(trade.getMatchKey()).remove(trade);
+			log.debug("Removing TradeID (" + trade.getUID() + "): "	+ result);
+		}
 	}
 	
 	public synchronized void addBlockTradeToCache(IMatchable trade) {

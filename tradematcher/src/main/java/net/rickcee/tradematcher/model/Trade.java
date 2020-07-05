@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.rickcee.tradematcher.IMatchable;
 
 /**
@@ -14,6 +15,7 @@ import net.rickcee.tradematcher.IMatchable;
  *
  */
 @Data
+@EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 public class Trade implements IMatchable, Comparable<Trade> {
 	private Long id;

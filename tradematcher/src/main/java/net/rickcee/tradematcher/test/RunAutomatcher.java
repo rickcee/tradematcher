@@ -6,6 +6,7 @@ package net.rickcee.tradematcher.test;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import lombok.extern.slf4j.Slf4j;
 import net.rickcee.tradematcher.Automatcher;
 import net.rickcee.tradematcher.IMatchable;
 import net.rickcee.tradematcher.data.TradePopulation;
@@ -16,6 +17,7 @@ import net.rickcee.tradematcher.util.BlockTradeFinder;
  * @author rickcee
  *
  */
+@Slf4j
 public class RunAutomatcher {
 
 	/**
@@ -33,8 +35,16 @@ public class RunAutomatcher {
 			ArrayList<IMatchable> allocationsForBlock = engine.getAllocCacheByKey().get(blockTrade.getMatchKey());
 			if (allocationsForBlock != null) {
 				Stack<? extends IMatchable> result = btf.findAllocationsForBlock(allocationsForBlock);
-				System.out.println("Result for Block [" + blockTrade.getBlockAccountId() + "/" + blockTrade.getQuantity() + "]: " + result);
-				allocationsForBlock.removeAll(result);
+
+				long allocSum = 0L;
+				for(IMatchable trade : result) {
+					allocSum += trade.getQuantity();
+				}
+				log.info(" ====> MATCH Result for Block [" + blockTrade.getId() + "/" + blockTrade.getBlockAccountId()
+						+ "/" + blockTrade.getQuantity() + "]: (" + result.size() + ") - " + allocSum);
+				log.debug("Allocation Result: " + result);
+				//allocationsForBlock.removeAll(result);
+				engine.removeAllocTradeFromCache(result);
 			}
 		}
 	}
