@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.rickcee.tradematcher;
+package net.rickcee.matcher.deprecated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.rickcee.tradematcher.event.TradeEvent;
-import net.rickcee.tradematcher.util.BlockTradeFinderAlt;
 
 /**
  * @author rickcee

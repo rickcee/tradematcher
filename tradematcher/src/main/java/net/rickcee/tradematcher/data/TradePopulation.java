@@ -5,7 +5,7 @@ package net.rickcee.tradematcher.data;
 
 import java.util.ArrayList;
 
-import net.rickcee.tradematcher.model.Trade;
+import net.rickcee.matcher.deprecated.Trade;
 
 /**
  * @author rickcee

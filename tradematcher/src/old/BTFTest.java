@@ -6,8 +6,8 @@ package tradematcher;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import net.rickcee.matcher.deprecated.BlockTradeFinder;
 import net.rickcee.tradematcher.IMatchable;
-import net.rickcee.tradematcher.util.BlockTradeFinder;
 
 /**
  * @author rickcee

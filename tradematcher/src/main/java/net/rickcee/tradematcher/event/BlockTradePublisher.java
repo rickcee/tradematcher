@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
-import net.rickcee.tradematcher.IMatchable;
+import net.rickcee.matcher.deprecated.IMatchable;
 
 /**
  * @author rickcee

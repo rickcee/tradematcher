@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.rickcee.tradematcher.Automatcher;
-import net.rickcee.tradematcher.IMatchable;
+import net.rickcee.matcher.deprecated.Automatcher;
+import net.rickcee.matcher.deprecated.IMatchable;
+import net.rickcee.matcher.deprecated.Trade;
 import net.rickcee.tradematcher.data.TradePopulation;
 import net.rickcee.tradematcher.event.AllocationTradePublisher;
 import net.rickcee.tradematcher.event.BlockTradePublisher;
-import net.rickcee.tradematcher.model.Trade;
 
 @RestController
 @RequestMapping("/v1/")

@@ -1,14 +1,13 @@
 /**
  * 
  */
-package net.rickcee.tradematcher.model;
+package net.rickcee.matcher.deprecated;
 
 import java.util.StringJoiner;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.rickcee.tradematcher.IMatchable;
 
 /**
  * @author rickcee

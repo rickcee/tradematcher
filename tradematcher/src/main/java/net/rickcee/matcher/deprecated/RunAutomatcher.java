@@ -1,17 +1,16 @@
 /**
  * 
  */
-package net.rickcee.tradematcher.test;
+package net.rickcee.matcher.deprecated;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 import lombok.extern.slf4j.Slf4j;
-import net.rickcee.tradematcher.Automatcher;
-import net.rickcee.tradematcher.IMatchable;
+import net.rickcee.matcher.deprecated.Automatcher;
+import net.rickcee.matcher.deprecated.BlockTradeFinder;
+import net.rickcee.matcher.deprecated.Trade;
 import net.rickcee.tradematcher.data.TradePopulation;
-import net.rickcee.tradematcher.model.Trade;
-import net.rickcee.tradematcher.util.BlockTradeFinder;
 
 /**
  * @author rickcee

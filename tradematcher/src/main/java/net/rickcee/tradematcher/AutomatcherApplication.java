@@ -10,7 +10,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.RequestContextListener;
 
 
-@SpringBootApplication(scanBasePackages = "net.rickcee")
+@SpringBootApplication(scanBasePackages = "net.rickcee.tradematcher")
 //@EnableAsync
 public class AutomatcherApplication extends SpringBootServletInitializer {
 

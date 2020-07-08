@@ -1,18 +1,18 @@
-package net.rickcee.tradematcher.util;
+package net.rickcee.tradematcher;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Stack;
 
 import lombok.extern.slf4j.Slf4j;
-import net.rickcee.tradematcher.IMatchable;
+import net.rickcee.tradematcher.model.RCTrade;
 
 @Slf4j
 public class BlockTradeFinder {
 	/** Set a value for target sum */
 	private long desiredQty = 0;
 
-	private Stack<IMatchable> stack = new Stack<IMatchable>();
+	private Stack<RCTrade> stack = new Stack<RCTrade>();
 
 	/** Store the sum of current elements stored in stack */
 	private int sumInStack = 0;
@@ -22,7 +22,7 @@ public class BlockTradeFinder {
 		this.desiredQty = desiredQty;
 	}
 
-	public boolean findDesiredQty(ArrayList<? extends IMatchable> data, int fromIndex, int endIndex) {
+	private boolean findDesiredQty(List<RCTrade> potentialMatches, int fromIndex, int endIndex) {
 		//System.out.println(stack + " || sumInStack: " + sumInStack);
 		/*	If the SUM is the one we expect, return */
 		if (sumInStack == desiredQty) {
@@ -32,16 +32,16 @@ public class BlockTradeFinder {
 		for (int currentIndex = fromIndex; currentIndex < endIndex; currentIndex++) {
 			//log.debug("processing: " + data.get(currentIndex));
 
-			IMatchable trade = data.get(currentIndex);
+			RCTrade trade = potentialMatches.get(currentIndex);
 			if (sumInStack + trade.getQuantity() <= desiredQty) {
-				stack.push(data.get(currentIndex));
+				stack.push(potentialMatches.get(currentIndex));
 				log.debug("PUSH: " + stack);
-				sumInStack += data.get(currentIndex).getQuantity();
+				sumInStack += potentialMatches.get(currentIndex).getQuantity();
 
 				/*
 				 * Make the currentIndex +1, and then use recursion to proceed further.
 				 */
-				boolean result = findDesiredQty(data, currentIndex + 1, endIndex);
+				boolean result = findDesiredQty(potentialMatches, currentIndex + 1, endIndex);
 				if(result) {
 					return result;
 				}
@@ -54,26 +54,23 @@ public class BlockTradeFinder {
 		return false;
 	}
 	
-	public Stack<? extends IMatchable> findAllocationsForBlock(ArrayList<? extends IMatchable> data) {
+	public Stack<RCTrade> findAllocationsForBlock(List<RCTrade> potentialMatches) {
 		long addedQty;
-		addedQty = data.stream().mapToLong(i -> i.getQuantity()).sum();
+		addedQty = potentialMatches.stream().mapToLong(i -> i.getQuantity()).sum();
 		if(desiredQty <= addedQty) {
-			log.debug("Desired Qty: " + desiredQty + " / Added Qty: " + addedQty + ". Processing.");
+			log.info(" BLOCK Potential Matches: " + potentialMatches.size() + " - Desired Qty: " + desiredQty + " / Total Qty: " + addedQty + ", Searching...");
 			
-			data.sort(new Comparator<IMatchable>() {
+			potentialMatches.sort(new Comparator<RCTrade>() {
 
 				@Override
-				public int compare(IMatchable o1, IMatchable o2) {
+				public int compare(RCTrade o1, RCTrade o2) {
 					return o2.getQuantity().compareTo(o1.getQuantity());
 				}
 			});
 			
-//			TreeSet<? extends IMatchable> sorted = new TreeSet<>(data);
-//			ArrayList<? extends IMatchable> alSorted = new ArrayList<>(sorted);
-			
-			findDesiredQty(data, 0, data.size());
+			findDesiredQty(potentialMatches, 0, potentialMatches.size());
 		} else {
-			log.debug("Desired Qty: " + desiredQty + " / Added Qty: " + addedQty + ". Skipping.");
+			log.info(" BLOCK Potential Matches: " + potentialMatches.size() + " - Desired Qty: " + desiredQty + " / Total Qty: " + addedQty + ", Quantity is insufficient, skipping...");
 		}
 		return stack;
 	}

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.rickcee.tradematcher;
+package net.rickcee.matcher.deprecated;
 
 /**
  * @author rickcee

@@ -1,11 +1,10 @@
-package net.rickcee.tradematcher.util;
+package net.rickcee.matcher.deprecated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
 import lombok.extern.slf4j.Slf4j;
-import net.rickcee.tradematcher.IMatchable;
 
 @Slf4j
 public class BlockTradeFinderAlt {

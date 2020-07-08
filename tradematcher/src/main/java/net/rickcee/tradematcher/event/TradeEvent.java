@@ -5,7 +5,7 @@ package net.rickcee.tradematcher.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import net.rickcee.tradematcher.IMatchable;
+import net.rickcee.matcher.deprecated.IMatchable;
 
 /**
  * @author rickcee
